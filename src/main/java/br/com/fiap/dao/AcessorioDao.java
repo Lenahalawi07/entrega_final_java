@@ -19,13 +19,14 @@ public class AcessorioDao implements AutoCloseable {
     }
 
     public int inserir(Acessorio acessorio) throws SQLException {
-        String sql = "INSERT INTO ACESSORIO (NOME, TIPO, RARIDADE, PRECO, ADMINISTRADOR_ID_ADMINISTRADOR) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO ACESSORIO (NOME, TIPO, RARIDADE, PRECO, ADMINISTRADOR_ID_ADMINISTRADOR, IMAGEM_URL) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = minhaConexao.prepareStatement(sql, new String[]{"ID_ACESSORIO"})) {
             stmt.setString(1, acessorio.getNome());
             stmt.setString(2, acessorio.getTipo());
             stmt.setString(3, acessorio.getRaridade());
             stmt.setInt(4, acessorio.getPreco());
             stmt.setInt(5, acessorio.getIdAdministrador());
+            stmt.setString(6, acessorio.getImagemUrl());
             int linhas = stmt.executeUpdate();
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
@@ -37,13 +38,14 @@ public class AcessorioDao implements AutoCloseable {
     }
 
     public int atualizar(Acessorio acessorio) throws SQLException {
-        String sql = "UPDATE ACESSORIO SET NOME = ?, TIPO = ?, RARIDADE = ?, PRECO = ? WHERE ID_ACESSORIO = ?";
+        String sql = "UPDATE ACESSORIO SET NOME = ?, TIPO = ?, RARIDADE = ?, PRECO = ?, IMAGEM_URL=? WHERE ID_ACESSORIO = ?";
         try (PreparedStatement stmt = minhaConexao.prepareStatement(sql)) {
             stmt.setString(1, acessorio.getNome());
             stmt.setString(2, acessorio.getTipo());
             stmt.setString(3, acessorio.getRaridade());
             stmt.setInt(4, acessorio.getPreco());
-            stmt.setInt(5, acessorio.getIdAcessorio());
+            stmt.setString(5, acessorio.getImagemUrl());
+            stmt.setInt(6, acessorio.getIdAcessorio());
             return stmt.executeUpdate();
         }
     }
@@ -85,7 +87,9 @@ public class AcessorioDao implements AutoCloseable {
                 rs.getString("TIPO"),
                 rs.getString("RARIDADE"),
                 rs.getInt("PRECO"),
-                rs.getInt("ADMINISTRADOR_ID_ADMINISTRADOR")
+                rs.getInt("ADMINISTRADOR_ID_ADMINISTRADOR"),
+                rs.getString("IMAGEM_URL")
+
         );
     }
 

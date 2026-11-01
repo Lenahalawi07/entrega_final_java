@@ -29,12 +29,13 @@ public class UsuarioDao implements AutoCloseable {
     }
 
     public int atualizar(Usuario usuario) throws SQLException {
-        String sql = "UPDATE USUARIO SET NOME = ?, EMAIL = ?, SENHA = ? WHERE ID_USUARIO = ?";
+        String sql = "UPDATE USUARIO SET NOME = ?, EMAIL = ?, SENHA = ?, FOTO_URL=? WHERE ID_USUARIO = ?";
         try (PreparedStatement stmt = minhaConexao.prepareStatement(sql)) {
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getEmail());
             stmt.setString(3, usuario.getSenha());
-            stmt.setInt(4, usuario.getIdUsuario());
+            stmt.setString(4, usuario.getFotoUrl());
+            stmt.setInt(5, usuario.getIdUsuario());
             return stmt.executeUpdate();
         }
     }
@@ -97,7 +98,9 @@ public class UsuarioDao implements AutoCloseable {
                 rs.getString("SENHA"),
                 rs.getDate("USUARIO_CRIADO_EM").toLocalDate(),
                 rs.getInt("SALDO_MOEDAS"),
-                rs.getInt("NIVEL_OFENSIVA")
+                rs.getInt("NIVEL_OFENSIVA"),
+                rs.getString("FOTO_URL")
+
         );
     }
 

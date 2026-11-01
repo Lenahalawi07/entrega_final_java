@@ -15,11 +15,14 @@ public class Usuario {
     private LocalDate usuarioCriadoEm;
     private int saldoMoedas;
     private int nivelOfensiva;
+    private String fotoUrl;
+
 
     //construtores
     public Usuario() {
     }
-    public Usuario(int idUsuario, String nome, String email, String senha, LocalDate usuarioCriadoEm, int saldoMoedas, int nivelOfensiva) {
+    public Usuario(int idUsuario, String nome, String email, String senha,
+                 LocalDate usuarioCriadoEm, int saldoMoedas, int nivelOfensiva, String fotoUrl) {
         this.idUsuario = idUsuario;
         this.nome = nome;
         this.email = email;
@@ -27,6 +30,7 @@ public class Usuario {
         this.usuarioCriadoEm = usuarioCriadoEm;
         this.saldoMoedas = saldoMoedas;
         this.nivelOfensiva = nivelOfensiva;
+        this.fotoUrl = fotoUrl;
     }
 
     //getters e setters
@@ -73,6 +77,9 @@ public class Usuario {
     public void setNivelOfensiva(int nivelOfensiva) {
         this.nivelOfensiva = nivelOfensiva;
     }
+    public String getFotoUrl() { return fotoUrl; }
+    public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
+
 
     //toString
 

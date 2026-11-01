@@ -16,6 +16,7 @@ public class AcessorioBo {
     private static final int TIPO_MAXIMO = 50;
     private static final int RARIDADE_MAXIMO = 50;
     private static final int ORA_REGISTROS_FILHOS = 2292;
+    private static final int URL_MAXIMO = 500;
 
     public List<Acessorio> listar() throws SQLException, ClassNotFoundException {
         try (AcessorioDao dao = new AcessorioDao()) {
@@ -55,6 +56,9 @@ public class AcessorioBo {
             atual.setTipo(dados.getTipo());
             atual.setRaridade(dados.getRaridade());
             atual.setPreco(dados.getPreco());
+            if (dados.getImagemUrl() != null) {
+                atual.setImagemUrl(dados.getImagemUrl());
+            }
             dao.atualizar(atual);
             return atual;
         }
@@ -86,6 +90,12 @@ public class AcessorioBo {
         acessorio.setRaridade(limpar(acessorio.getRaridade(), "Raridade", RARIDADE_MAXIMO));
         if (acessorio.getPreco() < 0) {
             throw new ValidacaoException("Preco nao pode ser negativo");
+        }
+        if (acessorio.getPreco() < 0) {
+            throw new ValidacaoException("Preco nao pode ser negativo");
+        }
+        if (acessorio.getImagemUrl() != null && acessorio.getImagemUrl().length() > URL_MAXIMO) {   // novo
+            throw new ValidacaoException("URL da imagem deve ter no maximo " + URL_MAXIMO + " caracteres");
         }
     }
 

@@ -16,6 +16,7 @@ public class UsuarioBo {
     private static final BCryptPasswordEncoder ENCODER = new BCryptPasswordEncoder();
     private static final int SENHA_MINIMA = 6;
     private static final int ORA_REGISTROS_FILHOS = 2292;
+    private static final int URL_MAXIMO = 500;
 
     public List<Usuario> listar() throws SQLException, ClassNotFoundException {
         try (UsuarioDao dao = new UsuarioDao()) {
@@ -59,6 +60,9 @@ public class UsuarioBo {
             }
             atual.setNome(dados.getNome());
             atual.setEmail(dados.getEmail());
+            if (dados.getFotoUrl() != null) {
+                atual.setFotoUrl(dados.getFotoUrl().trim());
+            }
             if (dados.getSenha() != null && !dados.getSenha().isBlank()) {
                 validarSenha(dados.getSenha());
                 atual.setSenha(ENCODER.encode(dados.getSenha()));
@@ -107,6 +111,12 @@ public class UsuarioBo {
         }
         if (!Usuario.emailValido(usuario.getEmail())) {
             throw new ValidacaoException("E-mail invalido");
+        }
+        if (!Usuario.emailValido(usuario.getEmail())) {
+            throw new ValidacaoException("E-mail invalido");
+        }
+        if (usuario.getFotoUrl() != null && usuario.getFotoUrl().length() > URL_MAXIMO) {   // novo
+            throw new ValidacaoException("URL da foto deve ter no maximo " + URL_MAXIMO + " caracteres");
         }
         usuario.setNome(usuario.getNome().trim());
         usuario.setEmail(usuario.getEmail().trim());

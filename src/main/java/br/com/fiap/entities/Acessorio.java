@@ -9,18 +9,22 @@ public class Acessorio {
     private String raridade;
     private int preco;
     private int idAdministrador;
+    private String imagemUrl;
 
     //construtores
     public Acessorio() {
     }
-    public Acessorio(int idAcessorio, String nome, String tipo, String raridade, int preco, int idAdministrador) {
+    public Acessorio(int idAcessorio, String nome, String tipo, String raridade,
+                     int preco, int idAdministrador, String imagemUrl) {
         this.idAcessorio = idAcessorio;
         this.nome = nome;
         this.tipo = tipo;
         this.raridade = raridade;
         this.preco = preco;
         this.idAdministrador = idAdministrador;
+        this.imagemUrl = imagemUrl;
     }
+
 
     //getters e setters
     public int getIdAcessorio() {
@@ -59,6 +63,9 @@ public class Acessorio {
     public void setIdAdministrador(int idAdministrador) {
         this.idAdministrador = idAdministrador;
     }
+    public String getImagemUrl() { return imagemUrl; }
+    public void setImagemUrl(String imagemUrl) { this.imagemUrl = imagemUrl; }
+
 
     //toString
     @Override
